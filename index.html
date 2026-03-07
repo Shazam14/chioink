@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chicky'Oink — Cebu's Best Lechon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:    #F97316;
+      --orange-dk: #EA580C;
+      --amber:     #FBBF24;
+      --green:     #4A7C3F;
+      --dark:      #1C1001;
+      --cream:     #FFF8F0;
+      --smoke:     #FFF3E6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: rgba(28,16,1,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--orange);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--amber);
+      letter-spacing: 2px;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--amber); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #1C1001 0%, #3B1A00 50%, #1C1001 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding-top: 64px;
+    }
+
+    /* flame flicker dots */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 70% 60%, rgba(249,115,22,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 20% 30%, rgba(251,191,36,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* floating blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.25;
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 400px; height: 400px; background: var(--orange); top: -100px; right: -100px; animation-delay: 0s; }
+    .blob-2 { width: 300px; height: 300px; background: var(--amber); bottom: -80px; left: -80px; animation-delay: 3s; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px, 20px) scale(1.1); } }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      line-height: 0.9;
+      color: #fff;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero h1 .oink {
+      color: var(--orange);
+      display: block;
+      text-shadow: 0 0 60px rgba(249,115,22,0.5);
+    }
+
+    .hero-tagline {
+      margin: 1.5rem auto 2.5rem;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-tagline span {
+      color: var(--amber);
+      margin: 0 0.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn-main {
+      background: var(--orange);
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 2px solid var(--orange);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-main:hover { background: var(--orange-dk); border-color: var(--orange-dk); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 2px solid rgba(255,255,255,0.3);
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: rgba(255,255,255,0.4); font-size: 0.7rem; letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block; width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── STRIP ─── */
+    .strip {
+      background: var(--orange);
+      padding: 0.8rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .strip-inner {
+      display: inline-flex; gap: 3rem;
+      animation: marquee 18s linear infinite;
+    }
+    .strip-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      color: #fff;
+    }
+    .strip-item .dot { color: var(--amber); margin-right: 3rem; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 5rem 2rem; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: #6B4226;
+      font-size: 1rem;
+      font-weight: 600;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ─── MENU ─── */
+    .menu-section {
+      background: var(--dark);
+      color: #fff;
+    }
+    .menu-section .section-title { color: #fff; }
+    .menu-section .section-sub { color: rgba(255,255,255,0.55); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+      max-width: 1100px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    .menu-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(249,115,22,0.15);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--amber));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .menu-card:hover { background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.4); transform: translateY(-4px); }
+    .menu-card:hover::before { transform: scaleX(1); }
+
+    .menu-emoji { font-size: 3rem; margin-bottom: 1rem; display: block; }
+    .menu-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+    }
+    .menu-desc { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .menu-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      background: rgba(249,115,22,0.15);
+      color: var(--orange);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 99px;
+      border: 1px solid rgba(249,115,22,0.3);
+    }
+
+    /* ─── WHY US ─── */
+    .why-section { background: var(--smoke); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+      max-width: 1100px;
+      margin-left: auto; margin-right: auto;
+    }
+    .why-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(249,115,22,0.1);
+      box-shadow: 0 4px 20px rgba(249,115,22,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .why-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(249,115,22,0.12); }
+    .why-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--orange), var(--amber));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .why-title { font-weight: 800; font-size: 1rem; margin-bottom: 0.5rem; color: var(--dark); }
+    .why-text { font-size: 0.88rem; color: #7C5230; line-height: 1.6; }
+
+    /* ─── BRANCHES ─── */
+    .branches-section { background: var(--cream); }
+    .branches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+      max-width: 1100px;
+      margin-left: auto; margin-right: auto;
+    }
+    .branch-card {
+      border: 2px solid rgba(249,115,22,0.15);
+      border-radius: 14px;
+      padding: 1.5rem;
+      background: #fff;
+      transition: all 0.2s;
+    }
+    .branch-card:hover { border-color: var(--orange); box-shadow: 0 4px 20px rgba(249,115,22,0.1); }
+    .branch-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: rgba(249,115,22,0.12);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .branch-name { font-weight: 800; font-size: 1rem; color: var(--dark); margin-bottom: 0.3rem; }
+    .branch-addr { font-size: 0.85rem; color: #9A6040; line-height: 1.5; }
+    .branch-hours {
+      margin-top: 0.75rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--green);
+    }
+    .branch-hours::before { content: '●'; font-size: 0.6rem; }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--orange-dk), var(--orange), var(--amber));
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+    .cta-banner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .cta-banner p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    footer .foot-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--amber);
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+    footer .foot-logo span { color: var(--orange); }
+    footer .foot-links { display: flex; gap: 1.5rem; justify-content: center; margin: 1rem 0; flex-wrap: wrap; }
+    footer .foot-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    footer .foot-links a:hover { color: var(--orange); }
+    footer .foot-copy { color: rgba(255,255,255,0.25); font-size: 0.75rem; margin-top: 1rem; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Chicky<span>'Oink</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#branches">Branches</a></li>
+    <li><a href="#order" class="btn-main" style="padding:0.4rem 1.2rem;font-size:0.8rem;">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">🔥 Cebu's Best Since Day One</div>
+    <h1>
+      Chicky
+      <span class="oink">'Oink</span>
+    </h1>
+    <p class="hero-tagline">
+      Lechon Belly <span>·</span> Manok <span>·</span> Liempo
+    </p>
+    <div class="hero-cta">
+      <a href="#order" class="btn-main">Order Now</a>
+      <a href="#menu" class="btn-ghost">See the Menu</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-item">LECHON BELLY<span class="dot"> ✦</span></span>
+    <span class="strip-item">LECHON MANOK<span class="dot"> ✦</span></span>
+    <span class="strip-item">LIEMPO<span class="dot"> ✦</span></span>
+    <span class="strip-item">CHICKYHANG<span class="dot"> ✦</span></span>
+    <span class="strip-item">LAPU-LAPU CEBU<span class="dot"> ✦</span></span>
+    <span class="strip-item">#LAMIAOINK<span class="dot"> ✦</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="strip-item">LECHON BELLY<span class="dot"> ✦</span></span>
+    <span class="strip-item">LECHON MANOK<span class="dot"> ✦</span></span>
+    <span class="strip-item">LIEMPO<span class="dot"> ✦</span></span>
+    <span class="strip-item">CHICKYHANG<span class="dot"> ✦</span></span>
+    <span class="strip-item">LAPU-LAPU CEBU<span class="dot"> ✦</span></span>
+    <span class="strip-item">#LAMIAOINK<span class="dot"> ✦</span></span>
+  </div>
+</div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label">What We Serve</p>
+    <h2 class="section-title">The Menu</h2>
+    <p class="section-sub">Fresh ingredients, traditional recipes, cooked to perfection every single day.</p>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <span class="menu-emoji">🐷</span>
+        <div class="menu-name">Lechon Belly</div>
+        <p class="menu-desc">Our signature — slow-roasted pork belly with impossibly crispy skin and juicy, herb-stuffed meat inside.</p>
+        <span class="menu-tag">⭐ Best Seller</span>
+      </div>
+      <div class="menu-card">
+        <span class="menu-emoji">🍗</span>
+        <div class="menu-name">Lechon Manok</div>
+        <p class="menu-desc">Whole roasted chicken marinated in classic Filipino spices. Golden skin, tender meat, every time.</p>
+        <span class="menu-tag">Fan Favorite</span>
+      </div>
+      <div class="menu-card">
+        <span class="menu-emoji">🥩</span>
+        <div class="menu-name">Liempo</div>
+        <p class="menu-desc">Grilled pork belly done right — smoky, charred edges, soft inside. Perfect with garlic rice.</p>
+        <span class="menu-tag">Crowd Pleaser</span>
+      </div>
+      <div class="menu-card">
+        <span class="menu-emoji">🌶️</span>
+        <div class="menu-name">Chickyhang</div>
+        <p class="menu-desc">Our spicy house special — a must-try for heat lovers. Bold flavor with a serious kick.</p>
+        <span class="menu-tag">🔥 Spicy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section" id="why">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label">Why Chicky'Oink</p>
+    <h2 class="section-title">Made Different</h2>
+    <p class="section-sub">We've been feeding Cebu with the same love, fire, and flavors from the very beginning.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🌿</div>
+        <div class="why-title">Freshest Ingredients</div>
+        <p class="why-text">No shortcuts. Every order uses only the freshest, locally sourced ingredients prepared daily.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔥</div>
+        <div class="why-title">Traditional Recipes</div>
+        <p class="why-text">Time-tested Filipino recipes, cooked with the same technique that made us Cebu's favorite.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Fast & Convenient</div>
+        <p class="why-text">Dine-in, takeout, or delivery — we make sure your craving gets satisfied quickly and easily.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📍</div>
+        <div class="why-title">Multiple Branches</div>
+        <p class="why-text">From Lapu-Lapu to Talamban, Banilad to Inayawan — we're always nearby, always ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANCHES -->
+<section class="branches-section" id="branches">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label">Find Us</p>
+    <h2 class="section-title">Our Branches</h2>
+    <p class="section-sub">Open daily from 8AM — find your nearest Chicky'Oink location.</p>
+    <div class="branches-grid">
+      <div class="branch-card">
+        <div class="branch-num">01</div>
+        <div class="branch-name">Lapu-Lapu (Main)</div>
+        <div class="branch-addr">Mercado, Basak, Lapu-Lapu City, Cebu</div>
+        <div class="branch-hours">Open Daily 8:00 AM – 12:00 MN</div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-num">02</div>
+        <div class="branch-name">Pit-os, Talamban</div>
+        <div class="branch-addr">MCP Building, Pit-os, Talamban, Cebu City</div>
+        <div class="branch-hours">Open Daily 8:00 AM – 12:00 MN</div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-num">03</div>
+        <div class="branch-name">Inayawan</div>
+        <div class="branch-addr">F. Jaca Street, Inayawan, Cebu City</div>
+        <div class="branch-hours">Open Daily 8:00 AM – 12:00 MN</div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-num">04</div>
+        <div class="branch-name">Banilad</div>
+        <div class="branch-addr">Banilad, Cebu City</div>
+        <div class="branch-hours">Open Daily 8:00 AM – 12:00 MN</div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-num">05</div>
+        <div class="branch-name">Banawa</div>
+        <div class="branch-addr">Banawa, Cebu City</div>
+        <div class="branch-hours">Open Daily 8:00 AM – 12:00 MN</div>
+      </div>
+      <div class="branch-card" style="border-style:dashed;background:transparent;display:flex;align-items:center;justify-content:center;min-height:160px;">
+        <div style="text-align:center;color:#C8956A;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">📍</div>
+          <div style="font-weight:800;font-size:0.9rem;">More Coming Soon</div>
+          <div style="font-size:0.8rem;margin-top:0.3rem;">Growing across Cebu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="order">
+  <h2>Gutom Na? Order Now.</h2>
+  <p>Call us or find us on your favorite delivery app.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="tel:09434626867" class="btn-main" style="background:#fff;color:var(--orange-dk);border-color:#fff;">
+      📞 0943 462 6867
+    </a>
+    <a href="https://www.facebook.com/ChickyOink/" target="_blank" class="btn-main" style="background:rgba(0,0,0,0.15);border-color:rgba(255,255,255,0.4);">
+      Facebook Page →
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Chicky<span>'Oink</span></div>
+  <div style="font-size:0.8rem;margin-bottom:0.5rem;">Cebu's Best Lechon Belly · Manok · Liempo</div>
+  <div class="foot-links">
+    <a href="#menu">Menu</a>
+    <a href="#branches">Branches</a>
+    <a href="https://www.facebook.com/ChickyOink/" target="_blank">Facebook</a>
+    <a href="tel:09434626867">Contact</a>
+  </div>
+  <div class="foot-copy">© 2025 Chicky'Oink. All rights reserved. #LAMIAOINK</div>
+</footer>
+
+</body>
+</html>
